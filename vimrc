@@ -172,10 +172,10 @@ map <C-t> :NERDTreeToggle<CR>
 " cd ~/.vim/bundle
 " git clone git://github.com/davidhalter/jedi-vim.git
 
-let g:jedi#usages_command = "<leader>z"
-let g:jedi#popup_on_dot = 0
-let g:jedi#popup_select_first = 0
-map <Leader>b Oimport ipdb; ipdb.set_trace() # BREAKPOINT<C-c>
+" let g:jedi#usages_command = "<leader>z"
+" let g:jedi#popup_on_dot = 0
+" let g:jedi#popup_select_first = 0
+" map <Leader>b Oimport ipdb; ipdb.set_trace() # BREAKPOINT<C-c>
 
 " ============================================================================
 " vim-flake8 setup
@@ -183,7 +183,7 @@ map <Leader>b Oimport ipdb; ipdb.set_trace() # BREAKPOINT<C-c>
 " cd ~/.vim/bundle
 " git clone git://github.com/nvie/vim-flake8.git
 " Use Flake8 linter on every write to a Python file.
-autocmd BufWritePost *.py call Flake8()
+" autocmd BufWritePost *.py call Flake8()
 
 " ============================================================================
 " j and k for OmniCppComplete
@@ -214,4 +214,23 @@ inoremap <silent><C-k> <C-R>=OmniPopup('k')<CR>
 " mkdir -p ~/.vim/ftplugin
 " wget -O ~/.vim/ftplugin/python_editing.vim http://www.vim.org/scripts/download_script.php?src_id=5492
 set nofoldenable
+
+" ============================================================================
+" Emmet-vim settings
+" ============================================================================
+
+" Plugin only works in Normal mode.
+let g:user_emmet_mode='n'
+" Leader key now ','; press comma twice to expand abbreviation.
+let g:user_emmet_leader_key=','
+" Emmet is only active inside html and css files.
+let g:user_emmet_install_global = 0
+autocmd FileType html,css EmmetInstall
+
+" ============================================================================
+" typescript-vim settings
+" ============================================================================
+
+" Turning off indenter
+let g:typescript_indent_disable = 1
 
