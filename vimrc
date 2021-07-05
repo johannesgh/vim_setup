@@ -44,10 +44,8 @@ set tabpagemax=8
 set showtabline=2
 
 " better indentation of code blocks in visual mode
-vnoremap < <gv  "
-vnoremap > >gv  " better indentation
-" Try to go into visual mode (v), then select several lines of code here and
-" then press ``>`` several times.
+vnoremap < <gv
+vnoremap > >gv
 
 " Show whitespace
 " MUST be inserted BEFORE the colorscheme command
@@ -103,10 +101,6 @@ set noswapfile
 " Pathogen setup
 " ============================================================================
 
-" Setting up Pathogen to manage plugins
-" mkdir -p ~/.vim/autoload ~/.vim/bundle
-" curl -so ~/.vim/autoload/pathogen.vim https://raw.githubusercontent.com/tpope/vim-pathogen/master/autoload/pathogen.vim
-" Now any plugin can be installed into a .vim/bundle/plugin-name/ folder
 call pathogen#infect()
 call pathogen#helptags()
 
@@ -115,8 +109,6 @@ call pathogen#helptags()
 " ============================================================================
 
 " Using wombat256mod color scheme through Pathogen
-" cd ~/.vim/bundle
-" git clone https://github.com/michalbachowski/vim-wombat256mod
 " Shell command "echo $TERM" should print 'xterm-256color'.
 " If it doesn't set it with this shell command:
 " export TERM=xterm-256color
@@ -127,28 +119,12 @@ color wombat256mod
 " vim-gitgutter setup
 " ============================================================================
 
-" Installing Git monitoring plugin vim-gitgutter
-" It shows git diff (+ & -) in the gutter (sign column)
-" cd ~/.vim/bundle
-" git clone git://github.com/airblade/vim-gitgutter.git
 " This is a native vim option but it's lowered from 4s for this plugin
 set updatetime=500
 
 " ============================================================================
 " vim-airline setup
 " ============================================================================
-
-" Installing status/tabline plugin (Powerline replacement) vim-airline
-" cd ~/.vim/bundle
-" git clone https://github.com/vim-airline/vim-airline
-" git clone https://github.com/vim-airline/vim-airline-themes
-
-" Installing Powerline patched fonts.
-" See https://github.com/powerline/fonts for what fonts are available
-" cd ~
-" git clone https://github.com/powerline/fonts.git --depth=1
-" fonts/install.sh
-" rm -rf fonts
 
 " Settings for vim-airline and vim-airline-themes
 let g:airline_powerline_fonts = 1
@@ -158,61 +134,25 @@ let g:airline_theme = 'powerlineish'
 " nerdtree setup
 " ============================================================================
 
-" cd ~/.vim/bundle
-" git clone https://github.com/scrooloose/nerdtree.git
-" git clone https://github.com/Xuyuanp/nerdtree-git-plugin.git
 " Ctrl+t shortcut to open it
 map <C-t> :NERDTreeToggle<CR>
-" Move it to the right side of the screen.
-" let g:NERDTreeWinPos = "right"
 
 " ============================================================================
-" jedi-vim setup
-" ============================================================================
-" cd ~/.vim/bundle
-" git clone git://github.com/davidhalter/jedi-vim.git
-
-" let g:jedi#usages_command = "<leader>z"
-" let g:jedi#popup_on_dot = 0
-" let g:jedi#popup_select_first = 0
-" map <Leader>b Oimport ipdb; ipdb.set_trace() # BREAKPOINT<C-c>
-
-" ============================================================================
-" vim-flake8 setup
-" ============================================================================
-" cd ~/.vim/bundle
-" git clone git://github.com/nvie/vim-flake8.git
-" Use Flake8 linter on every write to a Python file.
-" autocmd BufWritePost *.py call Flake8()
-
-" ============================================================================
-" j and k for OmniCppComplete
+" Better navigation for the OmniPopup
 " ============================================================================
 
-" Better navigating through omnicomplete option list
 " See http://stackoverflow.com/questions/2170023/how-to-map-keys-for-popup-menu-in-vim
-set completeopt=longest,menuone
-function! OmniPopup(action)
-    if pumvisible()
-        if a:action == 'j'
-            return "\<C-N>"
-        elseif a:action == 'k'
-            return "\<C-P>"
-        endif
-    endif
-    return a:action
-endfunction
+" This answer: https://stackoverflow.com/a/61500480
 
-inoremap <silent><C-j> <C-R>=OmniPopup('j')<CR>
-inoremap <silent><C-k> <C-R>=OmniPopup('k')<CR>
+inoremap <expr><C-j> pumvisible() ? "\<C-n>" : "\<C-j>"
+inoremap <expr><C-k> pumvisible() ? "\<C-p>" : "\<C-k>"
+inoremap <expr><Cr> pumvisible() ? "\<C-y>" : "\<Cr>"
 
 " ============================================================================
 " Python ftplugin setup
 " ============================================================================
 
-" Python folding
-" mkdir -p ~/.vim/ftplugin
-" wget -O ~/.vim/ftplugin/python_editing.vim http://www.vim.org/scripts/download_script.php?src_id=5492
+" Python function and class folding
 set nofoldenable
 
 " ============================================================================
