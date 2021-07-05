@@ -1,6 +1,5 @@
 #!/bin/bash
 # Script created by: Jóhannes G. Halldórsson
-# Last modified by: No One Yet
 printf "About to install several vim extentions..."
 printf "\nPrerequisites: vim wget git python3-jedi python3-flake8 flake8"
 printf "\nRecommended: python3-flake8-docstrings"
@@ -35,9 +34,10 @@ printf "\nInstalling jedi-vim"
 git clone git://github.com/davidhalter/jedi-vim.git ~/.vim/bundle/jedi-vim
 printf "\nInstalling vim-flake8"
 git clone git://github.com/nvie/vim-flake8.git ~/.vim/bundle/vim-flake8
-printf "\nInstalling ftplugin"
+
+printf "\nInstalling Python PEP-8 line length guide script."
 mkdir -p ~/.vim/ftplugin
-wget -O ~/.vim/ftplugin/python_editing.vim http://www.vim.org/scripts/download_script.php?src_id=5492
+cp ./python.vim ~/.vim/ftplugin/python.vim
 
 printf "\nDownloading powerline fonts"
 git clone https://github.com/powerline/fonts.git --depth=1 ~/fonts

@@ -61,15 +61,6 @@ set autoindent
 set shiftround
 " Convert tabs to spaces
 set expandtab
-" Set indent size to 4
-set tabstop=4
-set softtabstop=4
-set shiftwidth=4
-
-" Visual guide for 79 char max line lenght as recommended by PEP 8
-set textwidth=79
-set colorcolumn=80
-highlight ColorColumn ctermbg=233
 
 " Showing line numbers and length
 set number  " show line numbers
