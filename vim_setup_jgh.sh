@@ -35,9 +35,10 @@ git clone git://github.com/davidhalter/jedi-vim.git ~/.vim/bundle/jedi-vim
 printf "\nInstalling vim-flake8"
 git clone git://github.com/nvie/vim-flake8.git ~/.vim/bundle/vim-flake8
 
-printf "\nInstalling Python PEP-8 line length guide script."
+printf "\nInstalling Python PEP-8 line length guide script and folding script."
 mkdir -p ~/.vim/ftplugin
 cp ./python.vim ~/.vim/ftplugin/python.vim
+wget -O ~/.vim/ftplugin/python_editing.vim http://www.vim.org/scripts/download_script.php?src_id=5492
 
 printf "\nDownloading powerline fonts"
 git clone https://github.com/powerline/fonts.git --depth=1 ~/fonts
