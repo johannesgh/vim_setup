@@ -146,7 +146,7 @@ map <C-t> :NERDTreeToggle<CR>
 
 inoremap <expr><C-j> pumvisible() ? "\<C-n>" : "\<C-j>"
 inoremap <expr><C-k> pumvisible() ? "\<C-p>" : "\<C-k>"
-inoremap <expr><Cr> pumvisible() ? "\<C-y>" : "\<Cr>"
+inoremap <expr><Cr> pumvisible() ? "\<C-y>\<C-c>" : "\<Cr>"
 
 " ============================================================================
 " Python ftplugin setup
