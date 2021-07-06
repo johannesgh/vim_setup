@@ -120,23 +120,45 @@ pathogen_install dense-analysis ale
 # ESLint for JavaScript
 npm -i -g eslint eslint-plugin-vue
 
-# Python
+# Style (mostly line-length) Guide Scripts
 
-printf "\nInstalling Python PEP-8 line length guide script.\n"
-PY_LLGS_PATH="$VIM_DIR/ftplugin/python.vim"
-if [[ -f PY_LLGS_PATH ]]; then
+function ftplugin_install {
+    if [[ $# -eq 1 ]]; then
+        local language=$1
+    else
+       printf "\nThis function accepts 1 argument, not $#.\n"
+       exit 1
+    fi
+    local src_path="./ftplugin/$language.vim"
+    local dst_path="$VIM_DIR/ftplugin/$language.vim"
+    printf "\nInstalling \"$language\" style-guide script.\n"
+    if [[ -f $dst_path ]]; then
         printf "\t\tIt seems to be already installed."
-else
-        mkdir -p $VIM_DIR/ftplugin
-        cp ./python.vim $PY_LLGS_PATH
+    else
+        cp -u $src_path $dst_path
+    fi
+}
+
+if [[ ! -d "$VIM_DIR/ftplugin" ]]; then
+    mkdir -p $VIM_DIR/ftplugin
 fi
+
+ftplugin_install css
+ftplugin_install html
+ftplugin_install javascript
+ftplugin_install python
+ftplugin_install rust
+ftplugin_install sh
+
+# Python
 
 printf "\nInstalling Python code folding script.\n"
 PYTHON_FOLDING_SCRIPT_PATH="$VIM_DIR/ftplugin/python_editing.vim"
 if [[ -f $PATHOGEN_PATH ]]; then
         printf "\t\tThe folding script seems to be already installed."
 else
-        PFS_SOURCE_URL="http://www.vim.org/scripts/download_script.php?src_id=5492"
+        VIM_URL="http://www.vim.org"
+        PFS_SOURCE_URL="$VIM_URL/scripts/download_script.php?src_id=5492"
         wget -O $PYTHON_FOLDING_SCRIPT_PATH $PFS_SOURCE_URL
 fi
 
