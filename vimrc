@@ -105,7 +105,7 @@ call pathogen#infect()
 call pathogen#helptags()
 
 " ============================================================================
-" wombat256mod setup
+" wombat256mod setup (Backup Color Scheme)
 " ============================================================================
 
 " Using wombat256mod color scheme through Pathogen
@@ -116,11 +116,10 @@ set t_Co=256
 color wombat256mod
 
 " ============================================================================
-" vim-gitgutter setup
+" onedark.vim setup
 " ============================================================================
 
-" This is a native vim option but it's lowered from 4s for this plugin
-set updatetime=500
+colorscheme onedark
 
 " ============================================================================
 " vim-airline setup
@@ -128,7 +127,15 @@ set updatetime=500
 
 " Settings for vim-airline and vim-airline-themes
 let g:airline_powerline_fonts = 1
-let g:airline_theme = 'powerlineish'
+" let g:airline_theme = 'powerlineish'
+let g:airline_theme = 'onedark'
+
+" ============================================================================
+" vim-gitgutter setup
+" ============================================================================
+
+" This is a native vim option but it's lowered from 4s for this plugin
+set updatetime=500
 
 " ============================================================================
 " nerdtree setup
@@ -173,4 +180,26 @@ autocmd FileType html,css EmmetInstall
 
 " Turning off indenter
 let g:typescript_indent_disable = 1
+
+" ============================================================================
+" gVim settings
+" ============================================================================
+
+if has("gui_running")
+        set lines=36 columns=128 linespace=0
+        if has("unix")
+                " Linux font
+                set guifont=Anonymous\ Pro\ for\ Powerline\ 14
+        elseif has("gui_win32")
+                " Windows font
+                set guifont=Anonymice_Powerline:h14:cANSI:qDRAFT
+        " elseif has("gui_macvim")
+                " Mac font
+                " Haven't tried this on Mac,
+                " so I don't know what to put here.
+        else
+                " Default font
+                set guifont=Anonymous\ Pro\ for\ Powerline\ 14
+        endif
+endif
 
