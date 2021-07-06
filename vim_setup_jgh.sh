@@ -15,7 +15,20 @@ if echo "$user_answer" | grep -iq "^n" ;then
     exit 1
 fi
 
-VIM_DIR="$HOME/.vim"
+printf "\nAre you using Windows subsystem for Linux (y/N)?"
+read user_answer
+if echo "$user_answer" | grep -iq "^y" ;then
+        VIM_DIR="$HOME/vimfiles"
+        printf "You'll have to install YouCompleteMe, if you want "
+        printf "it to work on Windows itself, manually, see URL:\n"
+        printf "https://github.com/ycm-core/YouCompleteMe#windows "
+        printf "\n\nAnd some additional work may be needed. \n\n\n"
+        printf "Downloads will be placed in:\n$VIM_DIR\n"
+        printf "You may need to copy them to your Windows home dir"
+        printf "ectory, something like: \"C:\\Users\\<username>\" "
+else
+        VIM_DIR="$HOME/.vim"
+fi
 
 function pathogen_install {
         if [[ $# -eq 2 || $# -eq 3 ]]; then
@@ -33,6 +46,10 @@ function pathogen_install {
         fi
         local source_url="https://github.com/$gh_user/$gh_repo.git"
         local dest_dir="$VIM_DIR/bundle/$gh_repo"
+        if [[ -d "$dest_dir" ]]; then
+                printf "\t\t$gh_repo seems to be already installed."
+                return 0
+        fi
         if [[ -z "$n_levels" ]]; then
                 git clone $source_url $dest_dir
         else
@@ -41,8 +58,15 @@ function pathogen_install {
 }
 
 printf "\nInstalling Pathogen\n"
+
+PATHOGEN_PATH="$VIM_DIR/autoload/pathogen.vim"
+
+if [[ -f $PATHOGEN_PATH ]]; then
+        printf "\t\tPathogen seems to be already installed."
+else
+fi
 mkdir -p $VIM_DIR/autoload $VIM_DIR/bundle
-wget -O $VIM_DIR/autoload/pathogen.vim https://tpo.pe/pathogen.vim
+wget -O $PATHOGEN_PATH https://tpo.pe/pathogen.vim
 
 # GUI and Git
 
@@ -72,13 +96,13 @@ pathogen_install Xuyuanp nerdtree-git-plugin
 printf "\nInstalling YouCompleteMe Auto-Complete\n"
 
 if [[ -d "$VIM_DIR/bundle/YouCompleteMe" ]]; then
-        ALREADY_INSTALLED=1
+        YCM_ALREADY_INSTALLED=1
 else
-        ALREADY_INSTALLED=0
+        YCM_ALREADY_INSTALLED=0
 fi
 
-if [[ $ALREADY_INSTALLED -eq 0 ]]; then
-        pathogen_install ycm-core YouCompleteMe
+pathogen_install ycm-core YouCompleteMe
+if [[ $YCM_ALREADY_INSTALLED -eq 0 ]]; then
         working_dir=`pwd`
         cd $VIM_DIR/bundle/YouCompleteMe
         git submodule update --init --recursive
@@ -98,12 +122,23 @@ npm -i -g eslint eslint-plugin-vue
 
 # Python
 
-printf "\nInstalling Python PEP-8 line length guide script and folding script.\n"
-mkdir -p $VIM_DIR/ftplugin
-cp ./python.vim $VIM_DIR/ftplugin/python.vim
-source_url="http://www.vim.org/scripts/download_script.php?src_id=5492"
-dest_dir="$VIM_DIR/ftplugin/python_editing.vim"
-wget -O $dest_dir $source_url
+printf "\nInstalling Python PEP-8 line length guide script.\n"
+PY_LLGS_PATH="$VIM_DIR/ftplugin/python.vim"
+if [[ -f PY_LLGS_PATH ]]; then
+        printf "\t\tIt seems to be already installed."
+else
+        mkdir -p $VIM_DIR/ftplugin
+        cp ./python.vim $PY_LLGS_PATH
+fi
+
+printf "\nInstalling Python code folding script.\n"
+PYTHON_FOLDING_SCRIPT_PATH="$VIM_DIR/ftplugin/python_editing.vim"
+if [[ -f $PATHOGEN_PATH ]]; then
+        printf "\t\tThe folding script seems to be already installed."
+else
+        PFS_SOURCE_URL="http://www.vim.org/scripts/download_script.php?src_id=5492"
+        wget -O $PYTHON_FOLDING_SCRIPT_PATH $PFS_SOURCE_URL
+fi
 
 # Web development
 
