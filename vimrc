@@ -116,18 +116,19 @@ set t_Co=256
 color wombat256mod
 
 " ============================================================================
-" onedark.vim setup
-" ============================================================================
-
-colorscheme onedark
-
-" ============================================================================
 " vim-airline setup
 " ============================================================================
 
 " Settings for vim-airline and vim-airline-themes
 let g:airline_powerline_fonts = 1
-" let g:airline_theme = 'powerlineish'
+let g:airline_theme = 'powerlineish'
+
+" ============================================================================
+" onedark.vim setup
+" ============================================================================
+
+" Onedark color scheme
+colorscheme onedark
 let g:airline_theme = 'onedark'
 
 " ============================================================================
