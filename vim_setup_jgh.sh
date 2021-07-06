@@ -18,43 +18,44 @@ fi
 printf "\nAre you using Windows subsystem for Linux (y/N)?"
 read user_answer
 if echo "$user_answer" | grep -iq "^y" ;then
-        VIM_DIR="$HOME/vimfiles"
-        printf "You'll have to install YouCompleteMe, if you want "
-        printf "it to work on Windows itself, manually, see URL:\n"
-        printf "https://github.com/ycm-core/YouCompleteMe#windows "
-        printf "\n\nAnd some additional work may be needed. \n\n\n"
-        printf "Downloads will be placed in:\n$VIM_DIR\n"
-        printf "You may need to copy them to your Windows home dir"
-        printf "ectory, something like: \"C:\\Users\\<username>\" "
+    VIM_DIR="$HOME/vimfiles"
+    ON_WIN=1
+    printf "You'll have to install YouCompleteMe, if you want "
+    printf "it to work on Windows itself, manually, see URL:\n"
+    printf "https://github.com/ycm-core/YouCompleteMe#windows "
+    printf "\nSome additional work is needed, like installing "
+    printf "fonts.\n\nDownloads will be placed in:\n$VIM_DIR\n"
+    printf "You may need to copy them to your Windows home dir"
+    printf "ectory, something like: \"C:\\Users\\<username>\" "
 else
-        VIM_DIR="$HOME/.vim"
+    VIM_DIR="$HOME/.vim"
 fi
 
 function pathogen_install {
-        if [[ $# -eq 2 || $# -eq 3 ]]; then
-                local gh_user=$1
-                local gh_repo=$2
-                if [[ $# -eq 3 ]]; then
-                        local n_levels=$3
-                else
-                        local n_levels=""
-                fi
+    if [[ $# -eq 2 || $# -eq 3 ]]; then
+        local gh_user=$1
+        local gh_repo=$2
+        if [[ $# -eq 3 ]]; then
+            local n_levels=$3
         else
-                printf "\nThis function accepts 2 or 3 arguments"
-                printf "not $#.\n"
-                exit 2
+            local n_levels=""
         fi
-        local source_url="https://github.com/$gh_user/$gh_repo.git"
-        local dest_dir="$VIM_DIR/bundle/$gh_repo"
-        if [[ -d "$dest_dir" ]]; then
-                printf "\t\t$gh_repo seems to be already installed."
-                return 0
-        fi
-        if [[ -z "$n_levels" ]]; then
-                git clone $source_url $dest_dir
-        else
-                git clone --depth=$n_levels $source_url $dest_dir
-        fi
+    else
+        printf "\nThis function accepts 2 or 3 arguments"
+        printf "not $#.\n"
+        exit 2
+    fi
+    local source_url="https://github.com/$gh_user/$gh_repo.git"
+    local dest_dir="$VIM_DIR/bundle/$gh_repo"
+    if [[ -d "$dest_dir" ]]; then
+        printf "\t\t$gh_repo seems to be already installed."
+        return 0
+    fi
+    if [[ -z "$n_levels" ]]; then
+        git clone $source_url $dest_dir
+    else
+        git clone --depth=$n_levels $source_url $dest_dir
+    fi
 }
 
 printf "\nInstalling Pathogen\n"
@@ -62,7 +63,7 @@ printf "\nInstalling Pathogen\n"
 PATHOGEN_PATH="$VIM_DIR/autoload/pathogen.vim"
 
 if [[ -f $PATHOGEN_PATH ]]; then
-        printf "\t\tPathogen seems to be already installed."
+    printf "\t\tPathogen seems to be already installed."
 else
 fi
 mkdir -p $VIM_DIR/autoload $VIM_DIR/bundle
@@ -96,21 +97,21 @@ pathogen_install Xuyuanp nerdtree-git-plugin
 printf "\nInstalling YouCompleteMe Auto-Complete\n"
 
 if [[ -d "$VIM_DIR/bundle/YouCompleteMe" ]]; then
-        YCM_ALREADY_INSTALLED=1
+    YCM_ALREADY_INSTALLED=1
 else
-        YCM_ALREADY_INSTALLED=0
+    YCM_ALREADY_INSTALLED=0
 fi
 
 pathogen_install ycm-core YouCompleteMe
 if [[ $YCM_ALREADY_INSTALLED -eq 0 ]]; then
-        working_dir=`pwd`
-        cd $VIM_DIR/bundle/YouCompleteMe
-        git submodule update --init --recursive
-        python3 install.py --clangd-completer --ts-completer --rust-completer
-        # Add to above for additional Auto-complete:
-        # --cs-completer --go-completer --java-completer
-        # Or --all for everything enabled.
-        cd $working_dir
+    working_dir=`pwd`
+    cd $VIM_DIR/bundle/YouCompleteMe
+    git submodule update --init --recursive
+    python3 install.py --clangd-completer --ts-completer --rust-completer
+    # Add to above for additional Auto-complete:
+    # --cs-completer --go-completer --java-completer
+    # Or --all for everything enabled.
+    cd $working_dir
 fi
 
 # Ale Linter
@@ -126,8 +127,8 @@ function ftplugin_install {
     if [[ $# -eq 1 ]]; then
         local language=$1
     else
-       printf "\nThis function accepts 1 argument, not $#.\n"
-       exit 1
+        printf "\nThis function accepts 1 argument, not $#.\n"
+        exit 1
     fi
     local src_path="./ftplugin/$language.vim"
     local dst_path="$VIM_DIR/ftplugin/$language.vim"
@@ -155,11 +156,11 @@ ftplugin_install sh
 printf "\nInstalling Python code folding script.\n"
 PYTHON_FOLDING_SCRIPT_PATH="$VIM_DIR/ftplugin/python_editing.vim"
 if [[ -f $PATHOGEN_PATH ]]; then
-        printf "\t\tThe folding script seems to be already installed."
+    printf "\t\tThe folding script seems to be already installed."
 else
-        VIM_URL="http://www.vim.org"
-        PFS_SOURCE_URL="$VIM_URL/scripts/download_script.php?src_id=5492"
-        wget -O $PYTHON_FOLDING_SCRIPT_PATH $PFS_SOURCE_URL
+    VIM_URL="http://www.vim.org"
+    PFS_SOURCE_URL="$VIM_URL/scripts/download_script.php?src_id=5492"
+    wget -O $PYTHON_FOLDING_SCRIPT_PATH $PFS_SOURCE_URL
 fi
 
 # Web development
@@ -183,11 +184,27 @@ pathogen_install rust_lang rust.vim 1
 
 # Font
 
-printf "\nDownloading powerline fonts\n"
-git clone https://github.com/powerline/fonts.git --depth=1 ~/fonts
-printf "\nInstalling powerline fonts\n"
-~/fonts/install.sh
-printf "\nCleaning up after fonts install\n"
-rm -rf ~/fonts
+if [[ $ON_WIN < 1 ]]; then
+    # NOTE: Supposedly this only works on Ubuntu.
+    font_test=`fc-list | grep -c -s Powerline`
+else
+    font_test=0
+fi
+
+if [[ $font_test > 0 ]]; then
+    printf "\nPowerline fonts appear to be already installed. \n"
+else
+    printf "\nDownloading powerline fonts\n"
+    git clone https://github.com/powerline/fonts.git --depth=1 ~/fonts
+    printf "\nInstalling powerline fonts\n"
+    ~/fonts/install.sh
+    if [[ $ON_WIN < 1 ]]; then
+        # Not deleted on Windows for manual install.
+        printf "\nCleaning up after fonts install\n"
+        rm -rf ~/fonts
+    fi
+fi
+
+
 
 printf "\nEnd of script\n"
