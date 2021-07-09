@@ -119,7 +119,7 @@ fi
 printf "\nInstalling Ale Linter\n"
 pathogen_install dense-analysis ale
 # ESLint for JavaScript
-npm -i -g eslint eslint-plugin-vue
+npm install -g eslint eslint-plugin-vue
 
 # Style (mostly line-length) Guide Scripts
 
