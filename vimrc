@@ -57,6 +57,10 @@ au InsertLeave * match ExtraWhitespace /\s\+$/
 set autoindent
 " Round to even indentation levels
 set shiftround
+" Set default indent size to 4
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
 " Convert tabs to spaces
 set expandtab
 
@@ -173,7 +177,7 @@ let g:user_emmet_mode='n'
 let g:user_emmet_leader_key=','
 " Emmet is only active inside html and css files.
 let g:user_emmet_install_global = 0
-autocmd FileType html,css EmmetInstall
+autocmd FileType html,css,vue EmmetInstall
 
 " ============================================================================
 " typescript-vim settings
