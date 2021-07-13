@@ -8,6 +8,7 @@ printf " default-jdk (Java)\n"
 printf "\nPython (3): python3-jedi python3-flake8 flake8"
 printf " python3-flake8-docstrings"
 printf "\nBash: python3-bashate python-bashate-doc"
+printf "\nPlantUML: graphviz (and java)"
 
 printf "\nDo you want to continue (Y/n)?"
 read user_answer
@@ -65,9 +66,9 @@ PATHOGEN_PATH="$VIM_DIR/autoload/pathogen.vim"
 if [[ -f $PATHOGEN_PATH ]]; then
     printf "\t\tPathogen seems to be already installed."
 else
+    mkdir -p $VIM_DIR/autoload $VIM_DIR/bundle
+    wget -O $PATHOGEN_PATH https://tpo.pe/pathogen.vim
 fi
-mkdir -p $VIM_DIR/autoload $VIM_DIR/bundle
-wget -O $PATHOGEN_PATH https://tpo.pe/pathogen.vim
 
 # GUI and Git
 
@@ -117,9 +118,13 @@ fi
 # Ale Linter
 
 printf "\nInstalling Ale Linter\n"
-pathogen_install dense-analysis ale
-# ESLint for JavaScript
-npm install -g eslint eslint-plugin-vue
+if [[ -d "$VIM_DIR/bundle/YouCompleteMe" ]]; then
+    printf "\t\tAle seems to be already installed."
+else
+    pathogen_install dense-analysis ale
+    # ESLint for JavaScript
+    npm install -g eslint eslint-plugin-vue
+fi
 
 # Style (mostly line-length) Guide Scripts
 
@@ -155,13 +160,23 @@ ftplugin_install sh
 
 printf "\nInstalling Python code folding script.\n"
 PYTHON_FOLDING_SCRIPT_PATH="$VIM_DIR/ftplugin/python_editing.vim"
-if [[ -f $PATHOGEN_PATH ]]; then
+if [[ -f $PYTHON_FOLDING_SCRIPT_PATH ]]; then
     printf "\t\tThe folding script seems to be already installed."
 else
     VIM_URL="http://www.vim.org"
     PFS_SOURCE_URL="$VIM_URL/scripts/download_script.php?src_id=5492"
     wget -O $PYTHON_FOLDING_SCRIPT_PATH $PFS_SOURCE_URL
 fi
+
+# PlantUML Install
+printf "\nInstalling open-browser.vim\n"
+pathogen_install tyru open-browser.vim
+
+printf "\nInstalling plantuml-syntax\n"
+pathogen_install aklt plantuml-syntax
+
+printf "\nInstalling plantuml-previewer.vim\n"
+pathogen_install weirongxu plantuml-previewer.vim
 
 # Web development
 
@@ -206,5 +221,6 @@ else
 fi
 
 
-
 printf "\nEnd of script\n"
+exit 0
+
