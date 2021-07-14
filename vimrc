@@ -128,12 +128,34 @@ let g:airline_powerline_fonts = 1
 let g:airline_theme = 'powerlineish'
 
 " ============================================================================
-" onedark.vim setup
+" ############################################################################
+" ###############################COLOUR SCHEMES###############################
+" ############################################################################
 " ============================================================================
 
-" Onedark color scheme
-colorscheme onedark
-let g:airline_theme = 'onedark'
+" onedark
+" colorscheme onedark
+" let g:airline_theme = 'onedark'
+
+" wombat256grf
+" colorscheme wombat256grf
+
+" tokyonight-vim
+set termguicolors
+let g:tokyonight_style = 'night' " available: night, storm
+let g:tokyonight_enable_italic = 0
+colorscheme tokyonight
+let g:airline_theme = 'tokyonight'
+
+" vim-neon-dark
+" colorscheme neon-dark-256
+
+" vim-monokai
+" colorscheme monokai
+
+" ============================================================================
+" ############################################################################
+" ============================================================================
 
 " ============================================================================
 " vim-gitgutter setup
@@ -178,6 +200,24 @@ let g:user_emmet_leader_key=','
 " Emmet is only active inside html and css files.
 let g:user_emmet_install_global = 0
 autocmd FileType html,css,vue EmmetInstall
+
+" ============================================================================
+" vim-vue-plugin settings
+" ============================================================================
+
+let g:vim_vue_plugin_config = {
+        \"syntax": {
+        \    "template": ["html"],
+        \    "script": ["javascript"],
+        \    "style": ["css"],
+        \},
+        \"full syntax": [],
+        \"initial_indent": [],
+        \"attribute": 1,
+        \"keyword": 1,
+        \"foldexpr": 0,
+        \"debug": 0,
+        \}
 
 " ============================================================================
 " typescript-vim settings

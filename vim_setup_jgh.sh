@@ -70,17 +70,6 @@ else
     wget -O $PATHOGEN_PATH https://tpo.pe/pathogen.vim
 fi
 
-# GUI and Git
-
-# Back-up color scheme
-printf "\nInstalling Wombat256Mod\n"
-pathogen_install michalbachowski vim-wombat256mod
-export TERM=xterm-256color
-
-# Main Color Scheme
-printf "\nInstalling onedark\n"
-pathogen_install joshdick onedark.vim
-
 # Other GUI plugins
 printf "\nInstalling vim-gitgutter\n"
 pathogen_install airblade vim-gitgutter
@@ -93,9 +82,30 @@ pathogen_install scrooloose nerdtree
 printf "\nInstalling nerdtree-git-plugin\n"
 pathogen_install Xuyuanp nerdtree-git-plugin
 
+# Color schemes
+export TERM=xterm-256color
+
+printf "\nInstalling Wombat256Mod\n"
+pathogen_install michalbachowski vim-wombat256mod
+
+printf "\nInstalling onedark\n"
+pathogen_install joshdick onedark.vim
+
+printf "\nInstalling wombat256grf\n"
+pathogen_install gryf wombat256grf
+
+printf "\nInstalling tokyonight-vim\n"
+pathogen_install ghifarit53 tokyonight-vim
+
+printf "\nInstalling vim-neon-dark\n"
+pathogen_install nonetallt vim-neon-dark
+
+printf "\nInstalling vim-monokai\n"
+pathogen_install crusoexia vim-monokai
+
 # YouCompleteMe Auto-Complete
 
-printf "\nInstalling YouCompleteMe Auto-Complete\n"
+printf "\nInstalling YouCompleteMe auto-complete\n"
 
 if [[ -d "$VIM_DIR/bundle/YouCompleteMe" ]]; then
     YCM_ALREADY_INSTALLED=1
@@ -115,10 +125,14 @@ if [[ $YCM_ALREADY_INSTALLED -eq 0 ]]; then
     cd $working_dir
 fi
 
+# Syntastic syntax checker
+printf "\nInstalling syntastic syntax checker\n"
+pathogen_install vim-syntastic syntastic 1
+
 # Ale Linter
 
-printf "\nInstalling Ale Linter\n"
-if [[ -d "$VIM_DIR/bundle/YouCompleteMe" ]]; then
+printf "\nInstalling Ale linter\n"
+if [[ -d "$VIM_DIR/bundle/ale" ]]; then
     printf "\t\tAle seems to be already installed."
 else
     pathogen_install dense-analysis ale
@@ -186,11 +200,14 @@ pathogen_install mattn emmet-vim
 printf "\nInstalling vim-css-color\n"
 pathogen_install ap vim-css-color
 
+printf "\nInstalling vim-javascript\n"
+pathogen_install pangloss vim-javascript
+
+printf "\nInstalling vim-vue-plugin\n"
+pathogen_install leafOfTree vim-vue-plugin 1
+
 printf "\nInstalling typescript-vim\n"
 pathogen_install leafgarland typescript-vim
-
-printf "\nInstalling vim-vue\n"
-pathogen_install posva vim-vue
 
 # Rust
 
