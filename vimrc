@@ -42,6 +42,8 @@ map <Leader>m <esc>:tabnext<CR>
 set tabpagemax=8
 " Show tab labels: 0=never, 1=if n tabs > 1, 2=always
 set showtabline=2
+" Allows dealing with multiple unsaved buffers.
+set hidden
 
 " better indentation of code blocks in visual mode
 vnoremap < <gv

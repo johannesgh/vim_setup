@@ -16,11 +16,11 @@ if echo "$user_answer" | grep -iq "^n" ;then
     exit 1
 fi
 
-printf "\nAre you using Windows subsystem for Linux (y/N)?"
+printf "\nAre you using Ubuntu-on-Windows to install for Windows(y/N)?"
 read user_answer
 if echo "$user_answer" | grep -iq "^y" ;then
     VIM_DIR="$HOME/vimfiles"
-    ON_WIN=1
+    FOR_WIN=1
     printf "You'll have to install YouCompleteMe, if you want "
     printf "it to work on Windows itself, manually, see URL:\n"
     printf "https://github.com/ycm-core/YouCompleteMe#windows "
@@ -212,14 +212,15 @@ pathogen_install leafgarland typescript-vim
 # Rust
 
 printf "\nInstalling rust.vim\n"
-pathogen_install rust_lang rust.vim 1
+pathogen_install rust-lang rust.vim 1
 
 # Font
 
-if [[ $ON_WIN < 1 ]]; then
-    # NOTE: Supposedly this only works on Ubuntu.
+if [[ $FOR_WIN < 1 ]]; then
+    # NOTE: This does work on Ubuntu-on-Windows to detect the Ubuntu state.
     font_test=`fc-list | grep -c -s Powerline`
 else
+    # NOTE: Is it possible to check the Windows fonts from Ubuntu on Windows?
     font_test=0
 fi
 
@@ -230,7 +231,7 @@ else
     git clone https://github.com/powerline/fonts.git --depth=1 ~/fonts
     printf "\nInstalling powerline fonts\n"
     ~/fonts/install.sh
-    if [[ $ON_WIN < 1 ]]; then
+    if [[ $FOR_WIN < 1 ]]; then
         # Not deleted on Windows for manual install.
         printf "\nCleaning up after fonts install\n"
         rm -rf ~/fonts
