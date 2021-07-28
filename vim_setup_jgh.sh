@@ -217,6 +217,10 @@ pathogen_install rust-lang rust.vim 1
 # Font
 
 if [[ $FOR_WIN < 1 ]]; then
+<<<<<<< HEAD
+=======
+    # NOTE: Supposedly this only works on Ubuntu.
+>>>>>>> f0dd3651f9f0f10d551dcef16a65edd5e271f1f8
     # NOTE: This does work on Ubuntu-on-Windows to detect the Ubuntu state.
     font_test=`fc-list | grep -c -s Powerline`
 else
