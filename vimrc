@@ -122,14 +122,6 @@ set t_Co=256
 color wombat256mod
 
 " ============================================================================
-" vim-airline setup
-" ============================================================================
-
-" Settings for vim-airline and vim-airline-themes
-let g:airline_powerline_fonts = 1
-let g:airline_theme = 'powerlineish'
-
-" ============================================================================
 " ############################################################################
 " ###############################COLOUR SCHEMES###############################
 " ############################################################################
@@ -137,23 +129,31 @@ let g:airline_theme = 'powerlineish'
 
 " onedark
 " colorscheme onedark
-" let g:airline_theme = 'onedark'
 
 " wombat256grf
-" colorscheme wombat256grf
+colorscheme wombat256grf
 
 " tokyonight-vim
-set termguicolors
-let g:tokyonight_style = 'night' " available: night, storm
-let g:tokyonight_enable_italic = 0
-colorscheme tokyonight
-let g:airline_theme = 'tokyonight'
+" set termguicolors
+" let g:tokyonight_style = 'night' " available: night, storm
+" let g:tokyonight_enable_italic = 0
+" colorscheme tokyonight
 
 " vim-neon-dark
 " colorscheme neon-dark-256
 
 " vim-monokai
 " colorscheme monokai
+
+" ============================================================================
+" vim-airline setup
+" ============================================================================
+
+" Settings for vim-airline and vim-airline-themes
+let g:airline_powerline_fonts = 1
+let g:airline_theme = 'powerlineish'
+" let g:airline_theme = 'onedark'
+" let g:airline_theme = 'tokyonight'
 
 " ============================================================================
 " ############################################################################
@@ -249,4 +249,28 @@ if has("gui_running")
                 set guifont=Anonymous\ Pro\ for\ Powerline\ 14
         endif
 endif
+
+" ============================================================================
+" Ubuntu-on-Windows fix for Vim starting in REPLACE mode.
+" ============================================================================
+
+set t_u7=
+set ambw=double
+
+" ============================================================================
+" Cursor changes shape based on mode.
+" ============================================================================
+
+"	Cursor settings:
+
+"	1 -> blinking block
+"	2 -> solid block 
+"	3 -> blinking underscore
+"	4 -> solid underscore
+"	5 -> blinking vertical bar
+"	6 -> solid vertical bar
+
+let &t_SI.="\e[5 q" "SI = INSERT mode
+let &t_SR.="\e[1 q" "SR = REPLACE mode
+let &t_EI.="\e[2 q" "EI = NORMAL mode (ELSE)
 
