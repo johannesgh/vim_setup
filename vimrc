@@ -160,6 +160,14 @@ let g:airline_theme = 'powerlineish'
 " ============================================================================
 
 " ============================================================================
+" minimap setup
+" ============================================================================
+
+let g:minimap_width = 16
+let g:minimap_auto_start = 1
+let g:minimap_auto_start_win_enter = 1
+
+" ============================================================================
 " vim-gitgutter setup
 " ============================================================================
 
@@ -251,11 +259,16 @@ if has("gui_running")
 endif
 
 " ============================================================================
-" Ubuntu-on-Windows fix for Vim starting in REPLACE mode.
+" Ubuntu-on-Windows fixes for Vim.
 " ============================================================================
 
+" Vim starting in REPLACE mode.
 set t_u7=
-set ambw=double
+set ambiwidth=single
+
+" Disabling bell sound.
+set visualbell
+set t_vb=
 
 " ============================================================================
 " Cursor changes shape based on mode.
