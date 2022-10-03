@@ -283,7 +283,7 @@ set t_vb=
 "	5 -> blinking vertical bar
 "	6 -> solid vertical bar
 
-let &t_SI.="\e[5 q" "SI = INSERT mode
-let &t_SR.="\e[1 q" "SR = REPLACE mode
+let &t_SI.="\e[1 q" "SI = INSERT mode
+let &t_SR.="\e[3 q" "SR = REPLACE mode
 let &t_EI.="\e[2 q" "EI = NORMAL mode (ELSE)
 
