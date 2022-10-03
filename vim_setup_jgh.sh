@@ -81,6 +81,8 @@ printf "\nInstalling nerdtree\n"
 pathogen_install scrooloose nerdtree
 printf "\nInstalling nerdtree-git-plugin\n"
 pathogen_install Xuyuanp nerdtree-git-plugin
+printf "\nInstalling minimap\n"
+pathogen_install wfxr minimap.vim
 
 # Color schemes
 export TERM=xterm-256color
@@ -126,8 +128,8 @@ if [[ $YCM_ALREADY_INSTALLED -eq 0 ]]; then
 fi
 
 # Syntastic syntax checker
-printf "\nInstalling syntastic syntax checker\n"
-pathogen_install vim-syntastic syntastic 1
+# printf "\nInstalling syntastic syntax checker\n"
+# pathogen_install vim-syntastic syntastic 1
 
 # Ale Linter
 
