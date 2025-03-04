@@ -1,7 +1,7 @@
 " Jóhannes G. Halldórsson .vimrc file
-" modified from sample file by Martin Brochhaus
+" "Slightly too elaborate, but still nice." - Me
+" Started my modding sample from Martin Brochhaus, original here:
 " https://github.com/mbrochh/vim-as-a-python-ide/blob/master/.vimrc
-" This vimrc is optimized for python programming
 
 " Turn off vi compatibility in case of "vim -u some_file"
 set nocompatible
@@ -110,81 +110,47 @@ set noswapfile
 call pathogen#infect()
 call pathogen#helptags()
 
-" ============================================================================
-" wombat256mod setup (Backup Color Scheme)
-" ============================================================================
-
-" Using wombat256mod color scheme through Pathogen
 " Shell command "echo $TERM" should print 'xterm-256color'.
 " If it doesn't set it with this shell command:
 " export TERM=xterm-256color
+
+" ============================================================================
+" wombat256mod (Backup Color Scheme)
+" ============================================================================
+
+" Using wombat256mod color scheme through Pathogen
 set t_Co=256
 color wombat256mod
 
 " ============================================================================
-" ############################################################################
-" ###############################COLOUR SCHEMES###############################
-" ############################################################################
+" wombat256grf (Default Color Scheme)
 " ============================================================================
-
-" onedark
-" colorscheme onedark
 
 " wombat256grf
 colorscheme wombat256grf
 
-" tokyonight-vim
-" set termguicolors
-" let g:tokyonight_style = 'night' " available: night, storm
-" let g:tokyonight_enable_italic = 0
-" colorscheme tokyonight
-
-" vim-neon-dark
-" colorscheme neon-dark-256
-
-" vim-monokai
-" colorscheme monokai
-
 " ============================================================================
-" vim-airline setup
+" More Pathogen plugins
 " ============================================================================
 
 " Settings for vim-airline and vim-airline-themes
 let g:airline_powerline_fonts = 1
 let g:airline_theme = 'powerlineish'
-" let g:airline_theme = 'onedark'
-" let g:airline_theme = 'tokyonight'
 
-" ============================================================================
-" ############################################################################
-" ============================================================================
-
-" ============================================================================
 " minimap setup
-" ============================================================================
-
 let g:minimap_width = 16
 let g:minimap_auto_start = 1
 let g:minimap_auto_start_win_enter = 1
 
-" ============================================================================
 " vim-gitgutter setup
-" ============================================================================
-
 " This is a native vim option but it's lowered from 4s for this plugin
-set updatetime=500
+set updatetime=1000
 
-" ============================================================================
 " nerdtree setup
-" ============================================================================
-
 " Ctrl+t shortcut to open it
 map <C-t> :NERDTreeToggle<CR>
 
-" ============================================================================
 " Better navigation for the OmniPopup
-" ============================================================================
-
 " See http://stackoverflow.com/questions/2170023/how-to-map-keys-for-popup-menu-in-vim
 " This answer: https://stackoverflow.com/a/61500480
 
@@ -192,17 +158,11 @@ inoremap <expr><C-j> pumvisible() ? "\<C-n>" : "\<C-j>"
 inoremap <expr><C-k> pumvisible() ? "\<C-p>" : "\<C-k>"
 inoremap <expr><Cr> pumvisible() ? "\<C-y>\<C-c>" : "\<Cr>"
 
-" ============================================================================
 " Python ftplugin setup
-" ============================================================================
-
 " Python function and class folding
 set nofoldenable
 
-" ============================================================================
 " Emmet-vim settings
-" ============================================================================
-
 " Plugin only works in Normal mode.
 let g:user_emmet_mode='n'
 " Leader key now ','; press comma twice to expand abbreviation.
@@ -211,10 +171,7 @@ let g:user_emmet_leader_key=','
 let g:user_emmet_install_global = 0
 autocmd FileType html,css,vue EmmetInstall
 
-" ============================================================================
 " vim-vue-plugin settings
-" ============================================================================
-
 let g:vim_vue_plugin_config = {
         \"syntax": {
         \    "template": ["html"],
@@ -229,10 +186,7 @@ let g:vim_vue_plugin_config = {
         \"debug": 0,
         \}
 
-" ============================================================================
 " typescript-vim settings
-" ============================================================================
-
 " Turning off indenter
 let g:typescript_indent_disable = 1
 
@@ -283,7 +237,7 @@ set t_vb=
 "	5 -> blinking vertical bar
 "	6 -> solid vertical bar
 
-let &t_SI.="\e[1 q" "SI = INSERT mode
-let &t_SR.="\e[3 q" "SR = REPLACE mode
+let &t_SI.="\e[5 q" "SI = INSERT mode
+let &t_SR.="\e[1 q" "SR = REPLACE mode
 let &t_EI.="\e[2 q" "EI = NORMAL mode (ELSE)
 
