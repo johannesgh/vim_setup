@@ -1,5 +1,4 @@
 " Jóhannes G. Halldórsson .vimrc file
-" "Slightly too elaborate, but still nice." - Me
 " Started my modding sample from Martin Brochhaus, original here:
 " https://github.com/mbrochh/vim-as-a-python-ide/blob/master/.vimrc
 
@@ -136,6 +135,7 @@ colorscheme wombat256grf
 " Settings for vim-airline and vim-airline-themes
 let g:airline_powerline_fonts = 1
 let g:airline_theme = 'powerlineish'
+let g:airline#extensions#ale#enabled = 1
 
 " minimap setup
 let g:minimap_width = 16
