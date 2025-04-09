@@ -1,9 +1,10 @@
 #!/bin/bash
 # Script created by: Jóhannes G. Halldórsson
-REQ_PCKGS="vim wget git nodejs npm graphviz jdk-openjdk openjdk-doc \
-    plantuml shellcheck bash-language-server clang marksman texlive-bin \
-    texlab yamllint libxml2 deno python-lsp-server python-rope \
-    python-pyflakes python-pycodestyle"
+REQ_PCKGS="vim wget git git-delta fzf bat the_silver_searcher ripgrep perl \
+    nodejs npm graphviz jdk-openjdk openjdk-doc plantuml shellcheck \
+    bash-language-server clang marksman texlive-bin texlab yamllint libxml2 \
+    deno python-lsp-server python-rope python-pyflakes python-pycodestyle \
+    universal-ctags"
 printf "About to install several vim extentions and prerequisites."
 printf "You need to have already installed Rust.\n\nAnd if you're on Ubuntu"
 printf "you need to read through this script before running it!"
@@ -31,7 +32,10 @@ else
     read -r user_answer
     if echo "$user_answer" | grep -iq "^u" ;then
         # graphviz pulls in headless Java on Ubuntu
-        REQ_PCKGS=$(echo "$REQ_PCKGS" | sed -e "s/jdk-openjdk\s//"\
+        REQ_PCKGS=$(echo "$REQ_PCKGS" | sed -e "s/bat/bat-cat/"\
+         -e "s/the_silver_searcher/silversearcher-ag/" \
+         -e "s/ripgrep/rust-ripgrep/" \
+         -e "s/jdk-openjdk\s//" \
          -e "s/openjdk-doc\s//" \
          -e "s/bash-language-server\s//" \
          -e "s/clang/clangd/" \
@@ -105,6 +109,10 @@ pathogen_install dense-analysis ale
 # Vim-polyglot language pack collection.
 printf "\nInstalling vim-polyglot\n"
 pathogen_install sheerun vim-polyglot 1
+
+# Fuzzy finder plugin.
+printf "\nInstalling fzf.vim\n"
+pathogen_install junegunn fzf.vim
 
 # GUI plugins
 printf "\nInstalling vim-gitgutter\n"

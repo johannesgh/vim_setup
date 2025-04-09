@@ -21,11 +21,32 @@ set pastetoggle=<F2>
 set clipboard=unnamed
 
 " Rebind <Leader> key to the spacebar.
-let mapleader = "<Space>"
+nnoremap <Space> <Nop>
+let mapleader = "\<Space>"
 
-" Bind nohl
-" Removes highlight of your last search with Ctrl+N
-noremap <C-n> :nohl<CR>
+" easier moving between tabs
+nnoremap <Leader>n :tabprevious<CR>
+nnoremap <Leader>m :tabnext<CR>
+nnoremap <Leader>1 1gt
+nnoremap <Leader>2 2gt
+nnoremap <Leader>3 3gt
+nnoremap <Leader>4 4gt
+nnoremap <Leader>5 5gt
+nnoremap <Leader>6 6gt
+nnoremap <Leader>7 7gt
+nnoremap <Leader>8 8gt
+nnoremap <Leader>9 9gt
+nnoremap <Leader>0 10gt
+
+" Max number of tabs
+set tabpagemax=10
+" Show tab header: 0=never, 1=if n tabs > 1, 2=always
+set showtabline=2
+" Allows dealing with multiple unsaved buffers.
+set hidden
+
+" j and then k as a quick Escape from insert mode.
+inoremap jk <Esc>
 
 " bind Ctrl+<movement> keys to move around the windows,
 " instead of using Ctrl+w + <movement>
@@ -34,26 +55,9 @@ map <C-j> <C-w>j
 map <C-k> <C-w>k
 map <C-l> <C-w>l
 
-" easier moving between tabs
-noremap <leader>n :tabprevious<CR>
-noremap <leader>m :tabnext<CR>
-noremap <leader>1 1gt
-noremap <leader>2 2gt
-noremap <leader>3 3gt
-noremap <leader>4 4gt
-noremap <leader>5 5gt
-noremap <leader>6 6gt
-noremap <leader>7 7gt
-noremap <leader>8 8gt
-noremap <leader>9 9gt
-noremap <leader>0 10gt
-
-" Max number of tabs
-set tabpagemax=10
-" Show tab header: 0=never, 1=if n tabs > 1, 2=always
-set showtabline=2
-" Allows dealing with multiple unsaved buffers.
-set hidden
+" Bind nohl
+" Removes highlight of your last search with Ctrl+N
+noremap <C-n> :nohl<CR>
 
 " better indentation of code blocks in visual mode
 vnoremap < <gv
@@ -151,6 +155,12 @@ call pathogen#helptags()
 " export TERM=xterm-256color
 
 " ============================================================================
+" FuzzyFinder setup
+" ============================================================================
+
+let g:fzf_vim = {}
+
+" ============================================================================
 " wombat256mod (Backup Color Scheme)
 " ============================================================================
 
@@ -175,6 +185,8 @@ colorscheme tokyonight
 " ============================================================================
 
 " Settings for vim-airline and vim-airline-themes
+let g:airline#extensions#tabline#enabled = 1
+
 let g:airline_powerline_fonts = 1
 " let g:airline_theme = 'powerlineish'
 let g:airline_theme = 'tokyonight'
@@ -185,6 +197,7 @@ let g:minimap_width = 16
 let g:minimap_auto_start = 1
 let g:minimap_auto_start_win_enter = 1
 let g:minimap_git_colors = 1
+let g:minimap_highlight_range = 1
 
 " vim-gitgutter setup
 " This is a native vim option but it's lowered from 4s for this plugin
@@ -209,8 +222,8 @@ set nofoldenable
 " Emmet-vim settings
 " Plugin only works in Normal mode.
 let g:user_emmet_mode='n'
-" Leader key now ','; press comma twice to expand abbreviation.
-let g:user_emmet_leader_key=','
+" Leader key default Ctrl+Y 
+let g:user_emmet_leader_key='<c-y>'
 
 " Emmet is only active inside html and css files.
 let g:user_emmet_install_global = 0
