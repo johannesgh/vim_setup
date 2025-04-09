@@ -102,6 +102,10 @@ fi
 printf "\nInstalling Ale linter\n"
 pathogen_install dense-analysis ale
 
+# Vim-polyglot language pack collection.
+printf "\nInstalling vim-polyglot\n"
+pathogen_install sheerun vim-polyglot 1
+
 # GUI plugins
 printf "\nInstalling vim-gitgutter\n"
 pathogen_install airblade vim-gitgutter
@@ -121,8 +125,8 @@ export TERM=xterm-256color
 
 printf "\nInstalling Wombat256Mod\n"
 pathogen_install michalbachowski vim-wombat256mod
-printf "\nInstalling wombat256grf\n"
-pathogen_install gryf wombat256grf
+printf "\nInstalling tokyonight-vim\n"
+pathogen_install ghifarit53 tokyonight-vim
 
 # Style (mostly line-length) Guide Scripts
 function ftplugin_install {

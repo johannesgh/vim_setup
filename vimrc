@@ -20,8 +20,8 @@ set wildmenu
 set pastetoggle=<F2>
 set clipboard=unnamed
 
-" Rebind <Leader> key to comma.
-let mapleader = ","
+" Rebind <Leader> key to the spacebar.
+let mapleader = "<Space>"
 
 " Bind nohl
 " Removes highlight of your last search with Ctrl+N
@@ -29,17 +29,28 @@ noremap <C-n> :nohl<CR>
 
 " bind Ctrl+<movement> keys to move around the windows,
 " instead of using Ctrl+w + <movement>
+map <C-h> <C-w>h
 map <C-j> <C-w>j
 map <C-k> <C-w>k
 map <C-l> <C-w>l
-map <C-h> <C-w>h
 
 " easier moving between tabs
-map <Leader>n <esc>:tabprevious<CR>
-map <Leader>m <esc>:tabnext<CR>
+noremap <leader>n :tabprevious<CR>
+noremap <leader>m :tabnext<CR>
+noremap <leader>1 1gt
+noremap <leader>2 2gt
+noremap <leader>3 3gt
+noremap <leader>4 4gt
+noremap <leader>5 5gt
+noremap <leader>6 6gt
+noremap <leader>7 7gt
+noremap <leader>8 8gt
+noremap <leader>9 9gt
+noremap <leader>0 10gt
+
 " Max number of tabs
-set tabpagemax=8
-" Show tab labels: 0=never, 1=if n tabs > 1, 2=always
+set tabpagemax=10
+" Show tab header: 0=never, 1=if n tabs > 1, 2=always
 set showtabline=2
 " Allows dealing with multiple unsaved buffers.
 set hidden
@@ -66,9 +77,10 @@ set shiftwidth=4
 set expandtab
 
 " Showing line numbers and length
-set number  " show line numbers
-set nowrap  " don't automatically wrap on load
-set fo-=t   " don't automatically wrap text when typing
+set number          " show line numbers
+set relativenumber  " show relative numbers, both results in hybrid numbers
+set nowrap          " don'tautomatically wrap on load
+set fo-=t           " don'tautomatically wrap text when typing
 
 " easier formatting of paragraphs
 vmap Q gq
@@ -77,14 +89,13 @@ nmap Q gqap
 " Underline cursor's current line
 set cursorline
 
-" Turning filetype detection off
+" Filetype detection settings
 filetype off
-" Turning it back on with plugins and indents
 filetype plugin indent on
 
 " Enable syntax highlighting
-syntax enable
 let python_highlight_all = 1
+syntax enable
 
 " Set the fileformat to unix for safety and GitHub compatibility.
 set fileformat=unix
@@ -107,7 +118,27 @@ set noswapfile
 " ============================================================================
 
 let g:ale_completion_enabled = 1
-
+let g:ale_echo_msg_format = '%linter%: %s'
+let g:ale_linters_explicit = 1
+let g:ale_linters = {
+\        'shell': ['bashate', 'language_server', 'shell', 'shellcheck'],
+\        'python': ['flake8', 'mypy', 'pylint', 'pyright', 'ruff'],
+\        'rust': ['analyzer', 'cargo', 'cspell'],
+\        'vim': ['ale_custom_linting_rules', 'vimls', 'vint'],
+\        'vue': ['vls', 'eslint'],
+\        'html': ['alex', 'angular', 'cspell', 'eslint', 'fecs', 'htmlhint', 
+\                 'proselint', 'stylelint', 'tidy', 'vscodehtml', 'writegood'],
+\        'css': ['cspell', 'csslint', 'fecs', 'stylelint', 'vscodecss'],
+\        'javascript': ['cspell', 'deno', 'eslint', 'fecs', 'flow', 'flow_ls',
+\                       'jscs', 'jshint', 'standard', 'tsserver', 'xo'],
+\        'typescript': ['cspell', 'deno', 'eslint', 'standard', 'tslint',
+\                       'tsserver', 'typecheck', 'xo'],
+\        'markdown': ['alex', 'cspell', 'languagetool', 'markdownlint', 
+\                     'marksman', 'mdl', 'proselint', 'redpen', 'remark_lint',
+\                     'textlint', 'vale', 'writegood'],
+\        'text': ['alex', 'cspell', 'languagetool', 'proselint', 'redpen',
+\                 'textlint', 'vale', 'writegood']
+\}
 " ============================================================================
 " Pathogen setup
 " ============================================================================
@@ -123,16 +154,21 @@ call pathogen#helptags()
 " wombat256mod (Backup Color Scheme)
 " ============================================================================
 
-" Using wombat256mod color scheme through Pathogen
 set t_Co=256
 color wombat256mod
 
 " ============================================================================
-" wombat256grf (Default Color Scheme)
+" Tokyo-night (Default Color Scheme)
 " ============================================================================
 
-" wombat256grf
-colorscheme wombat256grf
+set termguicolors
+let g:tokyonight_style = 'night'
+let g:tokyonight_transparent_background = 1
+let g:tokyonight_menu_selection_background = 'green'
+let g:tokyonight_disable_italic_comment = 1
+let g:tokyonight_enable_italic = 0
+let g:tokyonight_cursor = 'auto'
+colorscheme tokyonight
 
 " ============================================================================
 " More Pathogen plugins
@@ -140,13 +176,15 @@ colorscheme wombat256grf
 
 " Settings for vim-airline and vim-airline-themes
 let g:airline_powerline_fonts = 1
-let g:airline_theme = 'powerlineish'
+" let g:airline_theme = 'powerlineish'
+let g:airline_theme = 'tokyonight'
 let g:airline#extensions#ale#enabled = 1
 
 " minimap setup
 let g:minimap_width = 16
 let g:minimap_auto_start = 1
 let g:minimap_auto_start_win_enter = 1
+let g:minimap_git_colors = 1
 
 " vim-gitgutter setup
 " This is a native vim option but it's lowered from 4s for this plugin
@@ -173,6 +211,7 @@ set nofoldenable
 let g:user_emmet_mode='n'
 " Leader key now ','; press comma twice to expand abbreviation.
 let g:user_emmet_leader_key=','
+
 " Emmet is only active inside html and css files.
 let g:user_emmet_install_global = 0
 autocmd FileType html,css,vue EmmetInstall
